@@ -18,33 +18,24 @@ int rows = img.rows;
         int cols = img.cols;
 
         Mat dst = img.clone();
-        //cout << img.type() << "           here i am       \n";
-
         if (img.type() == 16) {
                 cvtColor(dst, dst, CV_BGR2GRAY);
         }
-        //if (img.type()) {
-                dst.convertTo(dst, CV_32FC1);
-        //}
+        dst.convertTo(dst, CV_32FC1);
+        
         Mat prom;
 
         int p, q, i, j; int s = 0;
-        int m = cols ; int n = rows; //int di = cols % 8; int dj = rows % 8;
+        int m = cols ; int n = rows; 
 
         for (p = 0; p < n; p += 8) {
                 for (q = 0; q < m; q += 8) {
                 Rect region_of_interest = Rect(p, q, 8, 8);
                 Mat pr = dst(region_of_interest);
-                //pr.convertTo(pr, CV_32FC1);
                 dct(pr, pr);
-                //pr.convertTo(pr, CV_8UC1);
-
-                }
+                                }
         }
-        
-        //imshow("in_dct", dst);
-        //imshow("in_dct_convert", dst);
-        //waitKey(10000);
+
         imwrite ("./dct.jpg",dst );
         return dst;
 }
@@ -64,17 +55,9 @@ Mat IDCT_bw(Mat img) {
                 for (q = 0; q < m; q += 8) {
                         Rect region_of_interest = Rect(p, q, 8, 8);
                         Mat pr = dst(region_of_interest);
-                        //pr.convertTo(pr, CV_32FC1);
                         idct(pr, pr);
-                        //pr.convertTo(pr, CV_8UC1);
-
-                }
+                                      }
         }
-        //dst.convertTo(dst, CV_8UC1);
-        //imshow("inverse_dct", dst);
-        //waitKey(10000);
-        //cout << "im dying"<<endl;
-
         return dst;
 }
 
@@ -127,7 +110,6 @@ Mat code_CUJB(Mat src, int &s, vector<int> message)
 
 double med(Mat img, int i, int j) {
 return (img.at<Vec3b>(i + 1, j)[0] + img.at<Vec3b>(i, j + 1)[0] + img.at<Vec3b>(i - 1, j)[0] + img.at<Vec3b>(i, j - 1)[0]) / 4;
-//	return (img.at<Vec3b>(i + 1, j)[0] + img.at<Vec3b>(i, j + 1)[0] + img.at<Vec3b>(i - 1, j)[0] + img.at<Vec3b>(i, j - 1)[0] + img.at<Vec3b>(i + 2, j)[0] + img.at<Vec3b>(i, j + 2)[0] + img.at<Vec3b>(i - 2, j)[0] + img.at<Vec3b>(i, j - 2)[0]) / 8;
 }
 
 vector<int> decode_CUJB(Mat img, int s) {
@@ -329,7 +311,6 @@ vector<int> decode_Fridrich (Mat dci, int s, vector<double> q)  {
 
                 for (int i = 10; i < rows; i += 10) {
                         for (int j = 10; j < cols; j += 10) {
-                    //  for (int j = 0; j < 120; j += 8) {
                                 if (s == 0) break;
                                 while (src.at<float> (i,j) > q[k])  {
                                                                 k++;}
@@ -339,8 +320,7 @@ vector<int> decode_Fridrich (Mat dci, int s, vector<double> q)  {
                                 }
 
                         }
-                //}
-
+              
                 return message;
 
 }
@@ -348,15 +328,14 @@ vector<int> decode_Fridrich (Mat dci, int s, vector<double> q)  {
 
 
 
-Mat code_KJ_bw (Mat src, int &s, vector<int> message) { //â êàêîì èçîáðàæåíèè ïðàâêè?
+Mat code_KJ_bw (Mat src, int &s, vector<int> message) { 
         int rows = src.rows;
         int cols = src.cols;
 
-        //vector<int> message;
+        
         Mat dci = DCT_bw (src);
         s = 0;
 
-        //cout << "input binary message:\n";
         int m = 0;
         int i = 0;
         int j = 0;
@@ -403,7 +382,7 @@ Mat code_KJ_bw (Mat src, int &s, vector<int> message) { //â êàêîì èçîá
                 }
 
 
-                if (j + 24 < cols) j += 24;                     //?
+                if (j + 24 < cols) j += 24;                     
                 else {
                         if (i + 30 < rows) {                   
                                 i += 30;
@@ -426,38 +405,29 @@ vector <int> decode_KJ_bw (Mat dci, int s) {
         int rows = dci.rows;
         int cols = dci.cols;
         int k = 8;
-        //cout << "we got picture -  "  << (int)dci.at<float>(0, 0) << "\n";
-        //cout << "we got picture -  " << (int)dci.at<float>(2, 1) << "\n";
+       
         Mat src = DCT_bw (dci);
-        //cout << "   first dci element (0,0) :   " << src.at<float>(0, 0) << "   pixel 2   " << src.at<float>(2, 1) << "\n";
         int a, b, c, d;
-        a =0 ;
-        b =0;
-        c =2;
-        d =1;
+        a = 0 ;
+        b = 0;
+        c = 2;
+        d = 1;
 
 
 
         for (int i = 0; i < rows; i += 30) {
-//	int i = 0;
                 for (int j = 0; j < cols; j += 24) {
-            //  for (int j = 0; j < 120; j += 8) {
                         if (s == 0) break;
                         if (abs(src.at<float>(i + a, j + b)) - abs(src.at<float>(i + c, j + d)) > k) {
                                 message.push_back(0);
-                              //  cout << " i: " << i + a << "   j: " << j + b << "    pixel 1: " << src.at<float>(i + a, j + b) << "     pixel 2: " << src.at<float>(i + c, j + d) <<  "   inserted: 0  " "\n";
                                 s--;
                         }
                         if (abs(src.at<float>(i + a, j + b)) - abs(src.at<float>(i + c, j + d)) < -k) {
                                 message.push_back(1);
-                             //   cout << "   now i   " << i + a << "   now j   " << j + b << "    pixel 1:    " << src.at<float>(i + a, j + b) << "     pixel 2:      " << src.at<float>(i + c, j + d) << "   inserted: 1  " "\n";
                                 s--;
                         }
                 }
         }
-        //cout << "cycle ended.\n";
-        //for (int i = 0; i < message.size(); i++) cout << message.at(i);
-        //cout << "\n";
 
         return message;
 }
