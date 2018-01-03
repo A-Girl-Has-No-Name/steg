@@ -17,6 +17,8 @@ Mat IDCT_bw(Mat img);
 
 Mat code_CUJB(Mat src, int &s, vector<int> message);
 
+vector<int> decode_CUJB(Mat img, int s) ;
+
 double med(Mat img, int i, int j);
 
 Mat Cox (Mat img, int &s, int way, vector<double> message);
@@ -31,21 +33,21 @@ Mat code_KJ_bw (Mat src, int &s, vector<int> message);
 
 vector <int> decode_KJ_bw (Mat dci, int s);
 
-Mat round (Mat src, int gt) { };
+Mat round (Mat src, int gt);
 
-Mat round (Mat src, double gt) { };
+Mat round (Mat src, double gt);
 
-string compare ( const vector<int> a, const vector<int> b)   { };
+string compare ( const vector<int> a, const vector<int> b);
 
-string compare ( const vector<double> a, const vector<double> b)   { };
+string compare ( const vector<double> a, const vector<double> b);
 
-void Testing (Mat src, string filename, int i, double gt)  { };
+void Testing (Mat src, string filename, int i, double gt);
 
-void Testing1 (Mat src, string filename, int i, double gt)  { };
+void Testing1 (Mat src, string filename, int i, double gt);
 
-void Testing2 (Mat src, string filename, int i, double gt)  { };
+void Testing2 (Mat src, string filename, int i, double gt);
 
-void Testing3 (Mat src, string filename, int i, double gt)  { };
+void Testing3 (Mat src, string filename, int i, double gt);
 
 
 
