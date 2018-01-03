@@ -8,7 +8,7 @@
 #include <cmath>
 #include <vector>
 #include <opencv2/highgui/highgui.hpp>
-#include "steg1.h"
+#include "steg.h"
 
 #include <sstream>
 
