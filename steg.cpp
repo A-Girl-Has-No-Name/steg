@@ -6,7 +6,7 @@
 #include <cmath>
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>
-#include "steg1.h"
+#include "steg.h"
 
 
 using namespace std;
