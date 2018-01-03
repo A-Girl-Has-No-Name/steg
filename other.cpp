@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "steg1.h"
+#include "steg.h"
 
 
 
