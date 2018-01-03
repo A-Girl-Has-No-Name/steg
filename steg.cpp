@@ -6,6 +6,7 @@
 #include <cmath>
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>
+#include "steg1.h"
 
 
 using namespace std;
@@ -41,10 +42,7 @@ int rows = img.rows;
 
                 }
         }
-        
-        //imshow("in_dct", dst);
-        //imshow("in_dct_convert", dst);
-        //waitKey(10000);
+
         imwrite ("./dct.jpg",dst );
         return dst;
 }
@@ -70,11 +68,6 @@ Mat IDCT_bw(Mat img) {
 
                 }
         }
-        //dst.convertTo(dst, CV_8UC1);
-        //imshow("inverse_dct", dst);
-        //waitKey(10000);
-        //cout << "im dying"<<endl;
-
         return dst;
 }
 
@@ -426,10 +419,9 @@ vector <int> decode_KJ_bw (Mat dci, int s) {
         int rows = dci.rows;
         int cols = dci.cols;
         int k = 8;
-        //cout << "we got picture -  "  << (int)dci.at<float>(0, 0) << "\n";
-        //cout << "we got picture -  " << (int)dci.at<float>(2, 1) << "\n";
+
         Mat src = DCT_bw (dci);
-        //cout << "   first dci element (0,0) :   " << src.at<float>(0, 0) << "   pixel 2   " << src.at<float>(2, 1) << "\n";
+       
         int a, b, c, d;
         a =0 ;
         b =0;
@@ -455,9 +447,6 @@ vector <int> decode_KJ_bw (Mat dci, int s) {
                         }
                 }
         }
-        //cout << "cycle ended.\n";
-        //for (int i = 0; i < message.size(); i++) cout << message.at(i);
-        //cout << "\n";
-
         return message;
 }
+
