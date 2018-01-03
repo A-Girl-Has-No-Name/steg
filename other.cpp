@@ -9,8 +9,9 @@
 #include <fstream>
 #include <string>
 #include <vector>
-//#include "steg.h"
 #include <sstream>
+#include "steg1.h"
+
 
 
 using namespace std;
@@ -93,10 +94,7 @@ if ( a.size() == b.size() )   {
     }
 
    ss += to_string(h);
-  // ss.append ( "     mistakes from   ");
-  // int tmp = (int) a.size();
-  // ss += to_string(tmp);
-  // ss.append ("  possible\n");
+
 }
 
 
@@ -120,47 +118,17 @@ if ( a.size() == b.size() )   {
     }
 
    ss += to_string(h);
- //  ss.append ( "     mistakes from   ");
- //  int tmp = (int) a.size();
- //  ss += to_string(tmp);
- //  ss.append ("  possible\n");
+
 }
 
 
-if (a.size() > b.size())  ss.append ("14\n");                          //string& append (const char* s);
+if (a.size() > b.size())  ss.append ("14\n");                          
 if (a.size() < b.size())  ss.append ("13\n");
 
 
 return ss;
 
 }
-
-
- //img = img (Rect( 0,0,240,240));
-
-//	GaussianBlur (code, fin, Size(7,7), 0,0 );
-
-
- //     GaussianBlur(code, fin, Size(0, 0), 3);
-//      addWeighted(code, 1.5, fin, -0.5, 0, fin);
-
-
-/*
-cout<< "in a, b\n";
-cin >> alpha;
-cin >> beta;
-for (int y = 0; y < rows; y++ )
-  { for( int x = 0; x < cols; x++ )
-                     {
-    fin.at<float>(y,x) =
-        alpha*( fin.at<float>(y,x) ) + beta;
-           }
-  }
-
-
-*/
-
-
 
 
 void Testing (Mat src, string filename, int i, double gt)  {
@@ -190,27 +158,7 @@ while (fscanf( frid, "%d", &l) == 1)
 
       imwrite("./code.bmp",code);   Mat fin = imread ("code.bmp");
 
-      cout  <<" (write) fin  (100,  100):    "<< (int)fin.at<Vec3b>(100, 100)[0] <<"   " << (int) fin.at<Vec3b>(100, 100)[1] << "   "  <<(int) fin.at<Vec3b>(100, 100)[2] <<"\n";
-      cout  <<"  fin1:    "<<  fin1.at<float>(100, 100) <<"\n";
-
-      cout << "  fin size  "  << fin.rows <<"     " << fin.cols;  cout << "    ;     fin depth  " <<fin.depth() << ";   cha   "<<  fin.channels() << "  \n";
-      cout << "  fin1 size  "  << fin1.rows <<"     " << fin1.cols;  cout << "   ;      fin1 depth  " <<fin1.depth() << ";   cha1   "<<  fin1.channels() << "  \n";
-
-      cout  <<"  fin: CV_8U   "<< CV_8U <<"\n";
-      cout  <<"  fin1: CV_32F   "<<  CV_32F  << "\n";
-
-     /*  cout  <<" (write) fin  (50,  50):    "<< (int)fin.at<Vec3b>(50,  50)[0] <<"   " << (int) fin.at<Vec3b>(50,  50)[1] << "   "  <<(int) fin.at<Vec3b>(50,  50)[2] <<"\n";
-       cout  <<"  fin1:    "<<  fin1.at<float>(50,  50) <<"\n";
-
-       cout  <<" (write) fin  (20,  20):    "<< (int)fin.at<Vec3b>(20,  20)[0] <<"   " << (int) fin.at<Vec3b>(20,  20)[1] << "   "  <<(int) fin.at<Vec3b>(20,  20)[2] <<"\n";
-       cout  <<"  fin1:    "<<  fin1.at<float>(20,  20) <<"\n";
-
-       cout  <<" (write) fin  (1,  10):    "<< (int)fin.at<Vec3b>(1,  10)[0] <<"   " << (int) fin.at<Vec3b>(1,  10)[1] << "   "  <<(int) fin.at<Vec3b>(1,  10)[2] <<"\n";
-       cout  <<"  fin1:    "<<  fin1.at<float>(1,  10) <<"\n";
-*/
-
-
-
+       
       answer = decode_Fridrich (fin1, s, q);
       ss = compare(  answer,  message);
       h.clear();
@@ -224,25 +172,6 @@ while (fscanf( frid, "%d", &l) == 1)
       File << h;
        cout<<"writing:  "<<h;
       File.close();
-
-
-/*
-
-      answer = decode_Fridrich (fin1, s, q);
-      ss = compare(  answer,  message);
-      h.clear();
-      h += to_string(i);
-      h.append("bmp :  ");
-
- h.append(ss);
-      h.append("\n\n");
-     // ofstream File;
-     // File.open ( filename, ofstream::app);
-      File << h;
-       cout<<"writing:  "<<h;
-      File.close();
-
-*/
 
   }
 
@@ -270,17 +199,6 @@ while (fscanf( frid, "%lf", &l) == 1)
 
     imwrite("./code.bmp",fin);  fin = imread ("code.bmp");
       Mat fin1 = round (code, gt);
-
-      /*cout  <<" (write) fin  (100,  100):    "<< (int)fin.at<Vec3b>(100, 100)[0] <<"   " << (int) fin.at<Vec3b>(100, 100)[1] << "   "  <<(int) fin.at<Vec3b>(100, 100)[2] <<"\n";
-      cout  <<"  fin1:    "<<  fin1.at<float>(100, 100) <<"\n";
-
-      cout << "  fin size  "  << fin.rows <<"     " << fin.cols;  cout << "    ;     fin depth  " <<fin.depth() << ";   cha   "<<  fin.channels() << "  \n";
-       cout << "  fin1 size  "  << fin1.rows <<"     " << fin1.cols;  cout << "   ;      fin1 depth  " <<fin1.depth() << ";   cha1   "<<  fin1.channels() << "  \n";
-
-       cout  <<"  fin: CV_8U   "<< CV_8U <<"\n";
-       cout  <<"  fin1: CV_32F   "<<  CV_32F  << "\n";
-
-      */
       answer = decode_Cox (fin1 ,img, s, 2);
       ss = compare(  answer,  message);
       h.clear();
@@ -323,28 +241,8 @@ while (fscanf( frid, "%lf", &l) == 1)
     imwrite("./code.bmp",fin);  fin = imread ("code.bmp");
     Mat fin1 = round (code, gt);
 
-
-   /* cout  <<" (write) fin  (100,  100):    "<< (int)fin.at<Vec3b>(100, 100)[0] <<"   " << (int) fin.at<Vec3b>(100, 100)[1] << "   "  <<(int) fin.at<Vec3b>(100, 100)[2] <<"\n";
-    cout  <<"  fin1:    "<<  fin1.at<float>(100, 100) <<"\n";
-
-    cout << "  fin size  "  << fin.rows <<"     " << fin.cols;  cout << "    ;     fin depth  " <<fin.depth() << ";   cha   "<<  fin.channels() << "  \n";
-    сout << "  fin1 size  "  << fin1.rows <<"     " << fin1.cols;  cout << "   ;      fin1 depth  " <<fin1.depth() << ";   cha1   "<<  fin1.channels() << "  \n";
-
-    cout  <<"  fin: CV_8U   "<< CV_8U <<"\n";
-    cout  <<"  fin1: CV_32F   "<<  CV_32F  << "\n";
-
-
-    cout  <<" (write) fin  (50,  50):    "<< (int)fin.at<Vec3b>(50,  50)[0] <<"   " << (int) fin.at<Vec3b>(50,  50)[1] << "   "  <<(int) fin.at<Vec3b>(50,  50)[2] <<"\n";
-    cout  <<"  fin1:    "<<  fin1.at<float>(50,  50) <<"\n";
-    cout  <<" (write) fin  (20,  20):    "<< (int)fin.at<Vec3b>(20,  20)[0] <<"   " << (int) fin.at<Vec3b>(20,  20)[1] << "   "  <<(int) fin.at<Vec3b>(20,  20)[2] <<"\n";
-    cout  <<"  fin1:    "<<  fin1.at<float>(20,  20) <<"\n";
-
-    cout  <<" (write) fin  (1,  10):    "<< (int)fin.at<Vec3b>(1,  10)[0] <<"   " << (int) fin.at<Vec3b>(1,  10)[1] << "   "  <<(int) fin.at<Vec3b>(1,  10)[2] <<"\n";
-    cout  <<"  fin1:    "<<  fin1.at<float>(1,  10) <<"\n";
-
-*/
-      answer = decode_CUJB (fin1, s);
-      ss = compare(  answer,  message);
+    answer = decode_CUJB (fin1, s);
+    ss = compare(  answer,  message);
 
       h.clear();
     //  h += to_string(i);
@@ -384,23 +282,9 @@ while (fscanf( frid, "%lf", &l) == 1)
     Mat fin1 = round (code, gt);
     imwrite("./code.bmp",fin);   fin = imread ("code.bmp");
     //  Mat fin = round (code);
-
-
-
-   /* cout  <<" (write) fin  (100,  100):    "<< (int)fin.at<Vec3b>(100, 100)[0] <<"   " << (int) fin.at<Vec3b>(100, 100)[1] << "   "  <<(int) fin.at<Vec3b>(100, 100)[2] <<"\n";
-    cout  <<"  fin1:    "<<  fin1.at<float>(100, 100) <<"\n";
-
-    cout << "  fin size  "  << fin.rows <<"     " << fin.cols;  cout << "    ;     fin depth  " <<fin.depth() << ";   cha   "<<  fin.channels() << "  \n";
-     cout << "  fin1 size  "  << fin1.rows <<"     " << fin1.cols;  cout << "   ;      fin1 depth  " <<fin1.depth() << ";   cha1   "<<  fin1.channels() << "  \n";
-
-     cout  <<"  fin: CV_8U   "<< CV_8U <<"\n";
-     cout  <<"  fin1: CV_32F   "<<  CV_32F  << "\n";
-*/
       answer = decode_KJ_bw (fin1, s);
       ss = compare(  answer,  message);
       h.clear();
-    //  h += to_string(i);
-    //  h.append("bmp :  ");
       h.append(ss);
       h.append("\n\n");
       ofstream File;
