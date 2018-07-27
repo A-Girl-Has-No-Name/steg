@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
         cout << "input method number: \n 0 - fridrich \n 1- cox \n 2 - CUJB \n 3 - KJ\n";
         cin >> check;
 
-        int gt;
+        double gt;
         cout << "round parameter:  \n";
         cin >> gt;
 
